@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <title>Login</title>
+</head>
+<body>
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul style="color: red;">
+      {% for message in messages %}
+        <li>{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
+  <h2>Login</h2>
+  <form action="/login" method="POST">
+    <label for="email">E-mail:</label><br>
+    <input type="email" id="email" name="email" required><br>
+
+    <label for="senha">Senha:</label><br>
+    <input type="password" id="senha" name="senha" required><br><br>
+
+    <input type="submit" value="Entrar">
+  </form>
+
+  <p><a href="/">Voltar para o cadastro</a></p>
+</body>
+</html>

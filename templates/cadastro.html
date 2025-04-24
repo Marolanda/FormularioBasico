@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Cadastro</title>
+  <form action="/cadastro" method="POST">
+    <input type="submit" value="Cadastrar">
+
+
+  <script>
+    function validarFormulario(event) {
+      event.preventDefault(); // Impede envio imediato
+
+      const nome = document.getElementById("nome").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const senha = document.getElementById("senha").value;
+
+      let mensagens = [];
+
+      if (nome.length < 3) {
+        mensagens.push("O nome deve ter pelo menos 3 caracteres.");
+      }
+
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        mensagens.push("E-mail inválido.");
+      }
+
+      const senhaRegex = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
+      if (!senhaRegex.test(senha)) {
+        mensagens.push("A senha deve ter pelo menos 8 caracteres, incluindo uma letra maiúscula e um número.");
+      }
+
+      const feedback = document.getElementById("feedback");
+      feedback.innerHTML = "";
+
+      if (mensagens.length > 0) {
+        mensagens.forEach(msg => {
+          const p = document.createElement("p");
+          p.style.color = "red";
+          p.innerText = msg;
+          feedback.appendChild(p);
+        });
+      } else {
+        document.getElementById("form-cadastro").submit();
+      }
+    }
+  </script>
+</head>
+<body>
+  <h2>Cadastro</h2>
+  <form id="form-cadastro" action="/cadastro" method="POST" onsubmit="validarFormulario(event)">
+    <label for="nome">Nome:</label><br>
+    <input type="text" id="nome" name="nome" required><br>
+
+    <label for="email">E-mail:</label><br>
+    <input type="email" id="email" name="email" required><br>
+
+    <label for="senha">Senha:</label><br>
+    <input type="password" id="senha" name="senha" required><br><br>
+
+    <input type="submit" value="Cadastrar">
+  </form>
+
+  <div id="feedback"></div>
+
+  <p><a href="/login">Ir para o login</a></p>
+</body>
+</html>
